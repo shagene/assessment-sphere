@@ -1,17 +1,24 @@
 import { supabase } from './supabase'
-import { SupabaseClient } from '@supabase/supabase-js'
+import { SupabaseClient, PostgrestSingleResponse } from '@supabase/supabase-js'
 
-export async function getTenant(subdomains: string[]) {
-  let tenant = null;
-  let parentId = null;
+export interface Tenant {
+  id: string;
+  subdomain: string;
+  parent_id: string | null;
+  // Add other properties as needed
+}
+
+export async function getTenant(subdomains: string[]): Promise<Tenant | null> {
+  let tenant: Tenant | null = null;
+  let parentId: string | null = null;
 
   for (const subdomain of subdomains.reverse()) {
-    const { data, error } = await supabase
+    const { data, error }: PostgrestSingleResponse<Tenant> = await supabase
       .from('tenants')
       .select('*')
       .eq('subdomain', subdomain)
       .eq('parent_id', parentId)
-      .single() as { data: Tenant | null, error: Error | null };
+      .single();
 
     if (error || !data) {
       console.error('Error fetching tenant:', error);
@@ -23,11 +30,4 @@ export async function getTenant(subdomains: string[]) {
   }
 
   return tenant;
-}
-
-interface Tenant {
-  id: string;
-  subdomain: string;
-  parent_id: string | null;
-  // Add other properties as needed
 }
