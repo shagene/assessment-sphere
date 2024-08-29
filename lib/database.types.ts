@@ -160,18 +160,30 @@ export interface Database {
           updated_at?: string
         }
       }
-    }
+    };
     Views: {
       [_ in never]: never
-    }
+    };
     Functions: {
-      [_ in never]: never
-    }
+      create_tenant_with_admin: {
+        Args: {
+          tenant_name: string;
+          tenant_subdomain: string;
+          tenant_type: string;
+          admin_email: string;
+          admin_password: string;
+        };
+        Returns: {
+          tenant_id: string;
+          user_id: string;
+        };
+      };
+    };
     Enums: {
       [_ in never]: never
-    }
+    };
     CompositeTypes: {
       [_ in never]: never
-    }
-  }
+    };
+  };
 }

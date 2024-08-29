@@ -36,13 +36,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn(cal.variable, inter.variable)}>
-        <Providers>
-          {children}
-          <Analytics />
-        </Providers>
-      </body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }

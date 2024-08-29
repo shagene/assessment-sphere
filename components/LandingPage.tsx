@@ -1,6 +1,8 @@
+'use client'
+
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
   const [orgDomain, setOrgDomain] = useState('');
@@ -34,9 +36,14 @@ export default function LandingPage() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">For Individuals</h2>
           <p className="mb-4">Experience the power of our app for personal use.</p>
-          <Link href="/login" className="bg-blue-500 text-white px-4 py-2 rounded">
-            Individual Login
-          </Link>
+          <div className="space-y-2">
+            <Link href="/login" className="bg-blue-500 text-white px-4 py-2 rounded block text-center">
+              Individual Login
+            </Link>
+            <Link href="/signup" className="bg-green-500 text-white px-4 py-2 rounded block text-center">
+              Sign Up
+            </Link>
+          </div>
         </div>
 
         <div>
